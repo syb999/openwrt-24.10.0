@@ -644,6 +644,19 @@ define Device/bolt_arion
 endef
 TARGET_DEVICES += bolt_arion
 
+define Device/cmcc_an1021l
+  $(Device/nand)
+  $(Device/uimage-lzma-loader)
+  IMAGE_SIZE := 125184k
+  IMAGES += factory.bin
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+	check-size
+  DEVICE_VENDOR := CMCC
+  DEVICE_MODEL := AN1201L
+  DEVICE_PACKAGES := kmod-mt7603 kmod-mt7615e kmod-mt7663-firmware-ap kmod-mt7663-firmware-sta -uboot-envtools
+endef
+TARGET_DEVICES += cmcc_an1021l
+
 define Device/comfast_cf-e390ax
   $(Device/dsa-migration)
   $(Device/uimage-lzma-loader)

@@ -80,6 +80,7 @@ ramips_setup_interfaces()
 	asiarf,ap7621-nv1|\
 	beeline,smartbox-flash|\
 	beeline,smartbox-giga|\
+	cmcc,an1201l|\
 	elecom,wmc-x1800gst|\
 	elecom,wrc-x1800gs|\
 	gemtek,wvrtm-127acn|\
@@ -239,6 +240,11 @@ ramips_setup_macs()
 		wan_mac=$(mtd_get_mac_ascii board_data "mac")
 		lan_mac=$wan_mac
 		label_mac=$wan_mac
+		;;
+	cmcc,an1021l)
+		load_mac=$(mtd_get_mac_binary factory 0x4)
+		lan_mac=$(macaddr_add "$load_mac" -1)
+		wan_mac=$(macaddr_add "$load_mac" -2)
 		;;
 	comfast,cf-e390ax)
 		lan_mac=$(cat /sys/class/net/eth0/address)
